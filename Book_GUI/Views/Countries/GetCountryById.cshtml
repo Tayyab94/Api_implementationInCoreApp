@@ -1,0 +1,23 @@
+﻿@model BookApiProject.Dtos.CountryDto
+@{
+    ViewData["Title"] = "GetCountryById";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger">
+</div>
+<div>
+    <h4>Country Detail</h4><br />
+    <div>
+        <p>
+            <strong>Country Name :</strong> @Model.Name
+
+            <a class="btn btn-sm btn-primay" asp-action="UpdateCountry" asp-controller="Countries" asp-route-countryId="@Model.Id"> | Update Country</a>
+            <a class="btn btn-sm btn-info" asp-action="DeleteCountry" asp-controller="Countries" asp-route-countryId="@Model.Id"> | Delete Country</a>
+        </p>
+    </div>
+    <div class="form-group text-center">
+
+    </div>
+
+</div>
+
