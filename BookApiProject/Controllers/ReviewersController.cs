@@ -93,7 +93,7 @@ namespace BookApiProject.Controllers
             {
                 reviewsDto.Add(new ReviewDto()
                 {
-                    Id = review.Id,
+                    id = review.Id,
                     Headline = review.Headline,
                     Rating = review.Rating,
                     ReviewText = review.ReviewText

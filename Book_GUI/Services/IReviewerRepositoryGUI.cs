@@ -13,5 +13,10 @@ namespace Book_GUI.Services
         IEnumerable<ReviewDto> GetReviewsByReviewers(int reviewerid);
 
         ReviewerDto GetReviewerOfAReview(int reviewid);
+
+
+      //  IEnumerable<ReviewerDto> GetReviewsByReviewers(int reviewerid);
+
+
     }
 }

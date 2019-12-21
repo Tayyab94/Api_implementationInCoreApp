@@ -9,10 +9,8 @@ namespace Book_GUI.Services
 {
     public class ReviewerRepositoryGUI : IReviewerRepositoryGUI
     {
-
         public ReviewerDto GetReviewerByID(int reviewerid)
         {
-
             ReviewerDto reviewer = new ReviewerDto();
             using (var client = new HttpClient())
             {
@@ -22,6 +20,27 @@ namespace Book_GUI.Services
                 response.Wait();
                 var result = response.Result;
 
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<ReviewerDto>();
+                    readTask.Wait();
+                    reviewer = readTask.Result;
+                }
+            }
+            return reviewer;
+        }
+
+        public ReviewerDto GetReviewerOfAReview(int reviewid)
+        {
+            ReviewerDto reviewer = new ReviewerDto();
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:60039/api/");
+
+                var response = client.GetAsync($"{reviewid}/reviews");
+                response.Wait();
+                var result = response.Result;
                 if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<ReviewerDto>();
@@ -59,39 +78,15 @@ namespace Book_GUI.Services
             }
         }
 
-
-
-        public ReviewerDto GetReviewerOfAReview(int reviewid)
-        {
-            ReviewerDto reviewer = new ReviewerDto();
-
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:60039/api/");
-
-                var response = client.GetAsync($"{reviewid}/reviews");
-                response.Wait();
-                var result = response.Result;
-                if (result.IsSuccessStatusCode)
-                {
-                    var readTask = result.Content.ReadAsAsync<ReviewerDto>();
-                    readTask.Wait();
-                    reviewer = readTask.Result;
-                }
-            }
-            return reviewer;
-        }
-
-        
         public IEnumerable<ReviewDto> GetReviewsByReviewers(int reviewerid)
         {
-            IEnumerable<ReviewerDto> reviewerDtos = new List<ReviewerDto>();
+            IEnumerable<ReviewDto> reviewerDtos = new List<ReviewDto>();
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:60039/api/");
 
-                var response = client.GetAsync($"Reviewers/{reviewerid}/Reviewers");
+                var response = client.GetAsync($"Reviewers/{reviewerid}/Reviews");
                 response.Wait();
 
 
@@ -99,7 +94,7 @@ namespace Book_GUI.Services
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var readTask = result.Content.ReadAsAsync<IList<ReviewerDto>>();
+                    var readTask = result.Content.ReadAsAsync<IList<ReviewDto>>();
 
                     readTask.Wait();
 
@@ -108,5 +103,35 @@ namespace Book_GUI.Services
 
                 return reviewerDtos;
             }
+        }
+
+
+        //public IEnumerable<ReviewDto> GetReviewsByReviewers(int reviewerid)
+        //{
+        //    IEnumerable<ReviewDto> reviewerDtos = new List<ReviewDto>();
+
+        //    using (var client = new HttpClient())
+        //    {
+        //        client.BaseAddress = new Uri("http://localhost:60039/api/");
+
+        //        var response = client.GetAsync($"Reviewers/{reviewerid}/Reviewers");
+        //        response.Wait();
+
+
+        //        var result = response.Result;
+
+        //        if (result.IsSuccessStatusCode)
+        //        {
+        //            var readTask = result.Content.ReadAsAsync<IList<ReviewDto>>();
+
+        //            readTask.Wait();
+
+        //            reviewerDtos = readTask.Result;
+        //        }
+
+        //        return reviewerDtos;
+        //    }
+        //}
+
     }
 }
