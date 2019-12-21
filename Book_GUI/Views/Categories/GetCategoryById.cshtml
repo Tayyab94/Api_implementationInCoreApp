@@ -1,0 +1,35 @@
+﻿@model Book_GUI.ViewModels.CategoryBookViewModel
+@{
+    ViewData["Title"] = "GetCategoryById";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger">
+</div>
+<div>
+    <h4>Category Detail</h4><br />
+    <div>
+        <p>
+            <strong>Category Name :</strong> @Model.category.Name
+
+             </p>
+    </div>
+    <div class="form-group text-center">
+        <a class="btn btn-sm btn-primay" asp-action="UpdateCategory" asp-controller="Categories" asp-route-categoryid="@Model.category.Id"> | Update Country</a>
+        <a class="btn btn-sm btn-info" asp-action="DeleteCountry" asp-controller="Categories" asp-route-categoryid="@Model.category.Id"> | Delete Country</a>
+    </div>
+<br /><br />
+    <h5>@ViewBag.msgBook</h5>
+
+    <div>
+        @foreach (var item in Model.bookDtosList)
+        {
+            <div>
+                <p>
+                    <strong>Title</strong> @item.Title 
+                    <a asp-controller="Home" asp-action="GetBookById" asp-route-bookid="@item.Id"> Book Detail</a>
+                </p>
+            </div>
+        }
+    </div>
+</div>
+

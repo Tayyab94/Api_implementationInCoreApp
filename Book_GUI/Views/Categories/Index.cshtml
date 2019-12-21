@@ -1,0 +1,24 @@
+﻿@model IEnumerable<BookApiProject.Dtos.CategoryDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewBag.msg</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div>
+    <h2>Countries List</h2>
+
+    @foreach (var item in Model)
+    {
+        <p>
+
+            <strong>@item.Name</strong>
+            <a asp-action="GetCategoryById" asp-controller="Categories" asp-route-categoryid="@item.Id"> | Details</a>
+
+            <a asp-action="DeleteCategory" asp-controller="Categories" asp-route-categoryid="@item.Id"> | Delete Category</a>
+        </p>
+    }
+
+</div>
+
