@@ -12,5 +12,8 @@ namespace Book_GUI.Services
         ReviewDto GetReviewByID(int reviewid);
         IEnumerable<ReviewDto> GetReviewsOfABook(int bookid);
 
+
+        BookDto GetBookOfAReview(int reviewid);
+
     }
 }

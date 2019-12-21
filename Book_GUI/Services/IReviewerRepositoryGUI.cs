@@ -9,9 +9,9 @@ namespace Book_GUI.Services
    public interface IReviewerRepositoryGUI
     {
         IEnumerable<ReviewerDto> GetReviewers();
-        ReviewDto GetReviewerByID(int reviewerid);
+        ReviewerDto GetReviewerByID(int reviewerid);
         IEnumerable<ReviewDto> GetReviewsByReviewers(int reviewerid);
 
-        ReviewDto GetReviewerOfAReview(int reviewid);
+        ReviewerDto GetReviewerOfAReview(int reviewid);
     }
 }
