@@ -18,6 +18,7 @@ namespace Book_GUI
         {
             services.AddMvc();
             services.AddScoped<ICountryRepositoryGUI, CountryRepositoryGUI>();
+            services.AddScoped<IAuthorRepositoryGUI, AuthorRepositoryGUI>();
             services.AddScoped<ICategoryRepositoryGUI, CategoryRepostoryGUI>();
             services.AddScoped<IReviewerRepositoryGUI, ReviewerRepositoryGUI>();
             services.AddScoped<IReviewRepositoryGUI, ReviewRepositoryGUI>();

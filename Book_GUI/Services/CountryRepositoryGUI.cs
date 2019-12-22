@@ -11,9 +11,9 @@ namespace Book_GUI.Services
     {
         public IEnumerable<AuthorDto> GetAuthorsFromCountry(int countryid)
         {
-            
 
-                    IEnumerable<AuthorDto> authors = new List<AuthorDto>();
+
+            IEnumerable<AuthorDto> authors = new List<AuthorDto>();
 
             using (var client = new HttpClient())
             {
@@ -81,7 +81,7 @@ namespace Book_GUI.Services
                     //    countries =(IEnumerable<CountryDto>)readTask.Result.ToList();
                     //countries = (IList<CountryDto>)readTask.Result;
 
-                    countries =readTask.Result;
+                    countries = readTask.Result;
                 }
             }
 
@@ -104,8 +104,8 @@ namespace Book_GUI.Services
                 response.Wait();
 
                 var result = response.Result;
-                
-                if(result.IsSuccessStatusCode)
+
+                if (result.IsSuccessStatusCode)
                 {
                     var readTask = result.Content.ReadAsAsync<CountryDto>();
                     readTask.Wait();
@@ -120,7 +120,7 @@ namespace Book_GUI.Services
         {
             CountryDto countryDto = new CountryDto();
 
-            using(var client = new HttpClient())
+            using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://localhost:60039/api/");
                 var response = client.GetAsync($"countries/authors/{authorid}");
@@ -128,7 +128,7 @@ namespace Book_GUI.Services
 
                 var result = response.Result;
 
-                if(result.IsSuccessStatusCode)
+                if (result.IsSuccessStatusCode)
                 {
                     var readtask = result.Content.ReadAsAsync<CountryDto>();
                     readtask.Wait();

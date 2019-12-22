@@ -1,0 +1,58 @@
+﻿@model Book_GUI.ViewModels.AuthoCountryBooksCategoriesViewModel
+
+@{
+    ViewData["Title"] = "Get-Author-by-Id";
+}
+
+<div asp-validation-summary="ModelOnly" class="text-danger">
+</div>
+<div>
+    <h6>@ViewBag.reviewMsg</h6>
+    <p>
+        <strong>Author Detail</strong> -<span>  @Model.author.FirstName @Model.author.LastName</span>
+    </p>
+
+    <p>
+        <strong>Author Country</strong> -<span>  @Model.country.Name</span>
+        <a asp-controller="Countries" asp-action="GetCountriesById" asp-route-countryId="@Model.country.Id"> | Country Detail</a>
+    </p>
+    <hr />
+    <div class="form-group text-center">
+        <a class="btn btn-sm btn-primary" asp-action="UpdateAuthor" asp-controller="Authors" asp-route-authorid="@Model.author.Id"> | Update Author</a>
+        <a class="btn btn-sm btn-info" asp-action="DeleteReview" asp-controller="Authors" asp-route-authorid="@Model.author.Id"> | Delete Author</a>
+    </div>
+
+
+    <br /><br />
+    <h5>@ViewBag.reviewMessage</h5>
+
+    <div>
+        @foreach (var item in Model.BookCategories)
+        {
+            <div>
+                <p>
+                    <strong>Title</strong> @item.Key.Title
+                    <a asp-controller="Home" asp-action="GetBookById" asp-route-bookid="@item.Key.Id"> Book Detail</a>
+                </p>
+
+                <table>
+                    <tr>
+                        <th style="float:left; margin-right:15px"> Category :</th>
+
+                        @foreach (var cat in item.Value)
+                        {
+                            <td style="float:left; margin-right:15px">
+                               
+                                <a asp-controller="Categories" asp-action="GetCategoryById" asp-route-categoryid="@cat.Id"> @cat.Name -Detail</a>
+                            </td>
+                        }
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <hr />
+        }
+    </div>
+</div>
+
+
