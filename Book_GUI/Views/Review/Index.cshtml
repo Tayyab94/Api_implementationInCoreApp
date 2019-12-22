@@ -1,0 +1,23 @@
+﻿@model IEnumerable<BookApiProject.Dtos.ReviewDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewBag.msg</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div>
+    <h2>Review List</h2>
+
+    @foreach (var item in Model)
+    {
+        <p>
+
+            <strong>@item.Headline</strong>
+            <a asp-action="GetReviewById" asp-controller="Review" asp-route-reviewid="@item.id"> | Details</a>
+            <a asp-action="DeleteReview"  asp-controller="Review" asp-route-reviewid="@item.id"> | Delete Review</a>
+        </p>
+    }
+
+</div>
+

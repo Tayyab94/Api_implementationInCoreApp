@@ -12,5 +12,7 @@ namespace Book_GUI.Services
         BookDto GetBookByID(int bookid);
         BookDto GetBookByIsbn(string bookisbn);
         decimal GetBookRating(int bookid);
+
+        BookDto GetBookOfReview(int reviewid);
     }
 }

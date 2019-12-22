@@ -21,6 +21,7 @@ namespace Book_GUI
             services.AddScoped<ICategoryRepositoryGUI, CategoryRepostoryGUI>();
             services.AddScoped<IReviewerRepositoryGUI, ReviewerRepositoryGUI>();
             services.AddScoped<IReviewRepositoryGUI, ReviewRepositoryGUI>();
+            services.AddScoped<IBookRepositoryGUI, BookRepositoryGUI>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
