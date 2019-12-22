@@ -21,10 +21,18 @@
                     <a class="nav-link" asp-action="Index" asp-controller="Countries">Countries List</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="@Url.Action("Index","Authors")">Authors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link disabled" asp-action="Index" asp-controller="Categories">Categories</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="Index" asp-controller="Reviewer">Reviewer List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index","Review")">Review</a>
                 </li>
             </ul>
         </div>

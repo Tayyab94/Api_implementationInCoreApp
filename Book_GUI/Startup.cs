@@ -38,7 +38,7 @@ namespace Book_GUI
                  app.UseMvc(routes=> {
                      routes.MapRoute(
                          name: "default",
-                         template: "{controller=Home}/{action=Index}/{id?}"
+                         template: "{controller=Countries}/{action=Index}/{id?}"
                          );
                  });                          //(3) Order Matters Alot
             //app.Run(async (context) =>

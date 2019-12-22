@@ -1,4 +1,4 @@
-﻿@model BookApiProject.Dtos.CountryDto
+﻿@model Book_GUI.ViewModels.CountryAuthorViewModel
 @{
     ViewData["Title"] = "GetCountryById";
 }
@@ -9,15 +9,27 @@
     <h4>Country Detail</h4><br />
     <div>
         <p>
-            <strong>Country Name :</strong> @Model.Name
+            <strong>Country Name :</strong> @Model.Country.Name
 
-            <a class="btn btn-sm btn-primay" asp-action="UpdateCountry" asp-controller="Countries" asp-route-countryId="@Model.Id"> | Update Country</a>
-            <a class="btn btn-sm btn-info" asp-action="DeleteCountry" asp-controller="Countries" asp-route-countryId="@Model.Id"> | Delete Country</a>
+            <a class="btn btn-sm btn-primary" asp-action="UpdateCountry" asp-controller="Countries" asp-route-countryId="@Model.Country.Id"> | Update Country</a>
+            <a class="btn btn-sm btn-info" asp-action="DeleteCountry" asp-controller="Countries" asp-route-countryId="@Model.Country.Id"> | Delete Country</a>
         </p>
     </div>
-    <div class="form-group text-center">
 
+
+    <br /><br />
+    <h5>@ViewBag.AuthorMsg</h5>
+
+    <div>
+        @foreach (var item in Model.Authors)
+        {
+            <div>
+                <p>
+                    <strong>Author Name</strong> @item.FirstName @item.LastName
+                    <a asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorid="@item.Id"> Author Detail</a>
+                </p>
+            </div>
+        }
     </div>
-
 </div>
 

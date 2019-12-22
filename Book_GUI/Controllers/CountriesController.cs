@@ -1,4 +1,5 @@
 ﻿using Book_GUI.Services;
+using Book_GUI.ViewModels;
 using BookApiProject.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Book_GUI.Controllers
 {
-    public class CountriesController :Controller
+    public class CountriesController : Controller
     {
         private readonly ICountryRepositoryGUI _countryRepositoryGUI;
 
@@ -20,8 +21,8 @@ namespace Book_GUI.Controllers
         public IActionResult Index()
         {
             var countries = _countryRepositoryGUI.GetCountries();
-           
-            if(countries.Count()<=0)
+
+            if (countries.Count() <= 0)
             {
                 ViewBag.msg = "There was a problem retrieving the countries from " +
                     "the database or no counry exist";
@@ -35,7 +36,7 @@ namespace Book_GUI.Controllers
         {
             var country = _countryRepositoryGUI.GetCountryByID(countryId);
 
-            if(country==null || country.Id==0)
+            if (country == null || country.Id == 0)
             {
                 ModelState.AddModelError(string.Empty, "Error Getting a Country");
                 ViewBag.msg = "There is a Problem retrieving the Country " +
@@ -43,10 +44,21 @@ namespace Book_GUI.Controllers
 
                 country = new CountryDto();
             }
-            return View(country);
+
+            var authors = _countryRepositoryGUI.GetAuthorsFromCountry(countryId);
+
+            if (authors.Count() <= 0)
+            {
+                ViewBag.AuthorMsg = $"There is No Author from the Country with id => {countryId}";
+            }
+
+            var countryAuthorModel = new CountryAuthorViewModel
+            {
+                Authors = authors,
+                Country = country
+            };
+            return View(countryAuthorModel);
         }
-
-
 
     }
 }
