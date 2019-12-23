@@ -28,14 +28,15 @@
                     <td>
                         @item.Book.Title
                     </td>
-                    <td>
+                    
                         @foreach (var auth in item.Authors)
                         {
                         <td>
-                            @auth.FirstName @auth.LastName <a asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorid="@auth.Id">View</a>
+                            @auth.FirstName @auth.LastName 
+                            <a asp-controller="Authors" asp-action="GetAuthorById" asp-route-authorid="@auth.Id">View</a>
                         </td>
                     }
-                        </td>
+                       
                         <td>
                             @item.Book.Isbn
                         </td>

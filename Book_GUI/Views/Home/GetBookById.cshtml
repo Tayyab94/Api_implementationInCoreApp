@@ -69,8 +69,9 @@
 
     <br />
     <div class="form-group text-center">
-        <a class="btn btn-sm btn-primay" asp-action="UpdateBook" asp-controller="Home" asp-route-bookid="@Model.Book.Id"> | Update Book</a>
-        <a class="btn btn-sm btn-info" asp-action="DeleteBook" asp-controller="Home" asp-route-bookid="@Model.Book.Id"> | Delete Book</a>
+        <a class="btn btn-sm btn-info" asp-action="CreateReview" asp-controller="REview" asp-route-bookid="@Model.Book.Id" asp-route-bookTitle="@Model.Book.Title"> | Write Review</a>
+        <a class="btn btn-sm btn-primary" asp-action="UpdateBook" asp-controller="Home" asp-route-bookid="@Model.Book.Id"> | Update Book</a>
+        <a class="btn btn-sm btn-success" asp-action="DeleteBook" asp-controller="Home" asp-route-bookid="@Model.Book.Id"> | Delete Book</a>
     </div>
 
     <br /><br />

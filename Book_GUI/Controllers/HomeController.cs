@@ -96,6 +96,7 @@ namespace Book_GUI.Controllers
 
             var rating = bookRepositoryGUI.GetBookRating(bookid);
 
+          
             CompleteBookViewModel.Book = book;
             CompleteBookViewModel.Categories = categories;
             CompleteBookViewModel.Rating = rating;
@@ -115,7 +116,7 @@ namespace Book_GUI.Controllers
             var reviews = reviewRepositoryGUI.GetReviewsOfABook(bookid);
 
             if (reviews.Count() <= 0)
-                ModelState.AddModelError(string.Empty, "Some kind of error Getting reviews");
+                ViewBag.ReviewMsg =$"No Review of {book.Id} ";
 
             foreach (var review in reviews)
             {
@@ -124,6 +125,10 @@ namespace Book_GUI.Controllers
                 CompleteBookViewModel.ReviewsReviewers.Add(review, reviewer);
             }
 
+            if(!ModelState.IsValid)
+            {
+                ViewBag.bookMsg = "There is an Error Getting the Complete Book Record form the Database";
+            }
 
             return View(CompleteBookViewModel);
         }
