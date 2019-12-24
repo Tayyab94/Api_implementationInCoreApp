@@ -106,53 +106,6 @@ namespace Book_GUI.Controllers
             return View();
         }
 
-       [HttpGet]
-       public IActionResult UpdateCountry(int countryid)
-        {
-            var country = _countryRepositoryGUI.GetCountryByID(countryid);
-
-            if(country==null)
-            {
-                ModelState.AddModelError(string.Empty, "Error For Getting Country");
-
-                country = new CountryDto();
-            }
-
-            return View(country);
-        }
-
-        [HttpPost]
-        public IActionResult UpdateCountry(Country model)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:60039/api/");
-                var responseTask = client.PutAsJsonAsync($"countries/{model.Id}", model);
-
-                responseTask.Wait();
-
-                var result = responseTask.Result;
-
-                if (result.IsSuccessStatusCode)
-                {
-                    TempData["SuccessMessage"] = $"Country => {model.Name} was Update Successfuly!";
-
-                    return RedirectToAction(nameof(GetCountryById), new { countryId = model.Id });
-                }
-
-                if (Convert.ToInt32(result.StatusCode) == 422)
-                {
-                    ModelState.AddModelError("", "Country already Exist");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Something went Wrong please try again");
-                }
-            }
-
-            var countryDto = _countryRepositoryGUI.GetCountryByID(model.Id);
-            return View(countryDto);
-        }
 
         [HttpGet]
         public IActionResult DeleteCountry(int countryid)

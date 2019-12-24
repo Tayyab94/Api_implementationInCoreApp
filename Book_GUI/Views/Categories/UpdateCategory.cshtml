@@ -1,0 +1,23 @@
+﻿@model BookApiProject.Dtos.CategoryDto
+@{
+    ViewData["Title"] = "Update-Category";
+}
+<div class="text-danger" asp-validation-summary="ModelOnly">
+</div>
+<h1>Update Category</h1>
+
+<form asp-action="UpdateCategory" asp-controller="Categories" method="post">
+    <div class="form-group">
+        <input hidden="hidden" asp-for="Id" />
+        <div>
+            <label asp-for="Name">Category Name :</label>
+        </div>
+        <div>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <br />
+        <input type="submit" value="Edit Country" class="btn btn-sm btn-outline-primary" /> | 
+        <a asp-controller="Categories" asp-action="GetCategoryById" asp-route-categoryid="@Model.Id" class="btn btn-primary">Cancel</a>
+    </div>
+</form>
+
