@@ -1,0 +1,28 @@
+﻿@model BookApiProject.Dtos.ReviewerDto
+@{
+    ViewData["Title"] = "Update-REviwer";
+}
+<div class="text-danger" asp-validation-summary="ModelOnly">
+</div>
+<h1>Update Reviewer</h1>
+
+<form asp-action="UpdateReviewer" asp-controller="Reviewer" method="post">
+    <div class="form-group">
+        <input  hidden="hidden" asp-for="Id"/>
+        <div>
+            <label asp-for="FirstName">First Name :</label>
+        </div>
+        <div>
+            <input asp-for="FirstName" class="form-control" />
+        </div>
+        <br />
+        <div>
+            <label asp-for="LastName">Last Name :</label>
+        </div>
+        <div>
+            <input asp-for="LastName" class="form-control" />
+        </div><br />
+        <input type="submit" value="Update Reviewer" class="btn btn-sm btn-outline-primary" />
+    </div>
+</form>
+

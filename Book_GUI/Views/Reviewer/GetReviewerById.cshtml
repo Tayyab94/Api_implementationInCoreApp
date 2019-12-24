@@ -8,6 +8,7 @@
 <div>
     <h6>@ViewBag.reviewerMessage</h6>
     <h4>Reviewer Detail</h4><br />
+    <h4>@ViewBag.SuccessMessage</h4>
     <div>
         <p>
             <strong>Reviewer Name :</strong> @Model.Review.FirstName @Model.Review.LastName
@@ -15,8 +16,8 @@
         </p>
     </div>
     <div class="form-group text-center">
-        <a class="btn btn-sm btn-primay" asp-action="UpdateReviewer" asp-controller="Reviewer" asp-route-categoryid="@Model.Review.Id"> | Update Reviewer</a>
-        <a class="btn btn-sm btn-info" asp-action="DeleteReviewer" asp-controller="Reviewer" asp-route-categoryid="@Model.Review.Id"> | Delete Reviewer</a>
+        <a class="btn btn-sm btn-primay" asp-action="UpdateReviewer" asp-controller="Reviewer" asp-route-reviewerid="@Model.Review.Id"> | Update Reviewer</a>
+        <a class="btn btn-sm btn-info" asp-action="DeleteReviewer" asp-controller="Reviewer" asp-route-reviewerid="@Model.Review.Id"> | Delete Reviewer</a>
     </div>
     <br /><br />
     <h5>@ViewBag.reviewMessage</h5>

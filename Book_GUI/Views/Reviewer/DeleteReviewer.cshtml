@@ -1,0 +1,21 @@
+﻿@model BookApiProject.Dtos.ReviewerDto
+
+
+@{
+    ViewData["Title"] = "Delete-Reviewer";
+}
+
+<div class="text-danger" asp-validation-summary="ModelOnly"></div>
+<h2>Reviewer Name : @Model.FirstName- @Model.LastName ?</h2>
+<br />
+
+<form asp-controller="Reviewer" asp-action="DeleteReviewer" asp-route-reviewerid="@Model.Id" asp-route-reviewerName="@Model.FirstName" method="post">
+    <dialog>
+        <p>
+            <strong>Country Name</strong> : @Model.FirstName
+        </p>
+    </dialog>
+    <input value="Delete REviewer" class="btn btn-outline-danger" type="submit" />
+    <a asp-controller="Reviewer" asp-action="GetReviewerById" asp-route-reviewerid="@Model.Id" class="btn btn-outline-primary"> | Cancel</a>
+</form>
+

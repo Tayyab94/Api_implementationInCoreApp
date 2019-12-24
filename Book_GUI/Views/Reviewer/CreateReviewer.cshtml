@@ -1,0 +1,27 @@
+﻿@model BookApiProject.Models.Reviewer
+@{
+    ViewData["Title"] = "Create-REviewer";
+}
+<div class="text-danger" asp-validation-summary="ModelOnly">
+</div>
+<h1>Create Reviewer</h1>
+
+<form asp-action="CreateReviewer" asp-controller="Reviewer" method="post">
+    <div class="form-group">
+        <div>
+            <label asp-for="FirstName">First Name :</label>
+        </div>
+        <div>
+            <input asp-for="FirstName" class="form-control" />
+        </div>
+        <br />
+        <div>
+            <label asp-for="LastName">Last Name :</label>
+        </div>
+        <div>
+            <input asp-for="LastName" class="form-control" />
+        </div><br />
+        <input type="submit" value="Save Country" class="btn btn-sm btn-outline-primary" />
+    </div>
+</form>
+
