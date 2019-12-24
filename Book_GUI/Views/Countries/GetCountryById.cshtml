@@ -3,11 +3,13 @@
     ViewData["Title"] = "GetCountryById";
 }
 
-<div asp-validation-summary="ModelOnly" class="text-danger">
-</div>
+
 <div>
     <h4>Country Detail</h4><br />
     <div>
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+            <h4 class="text-success">@ViewBag.SuccessMessage</h4>
+        </div>
         <p>
             <strong>Country Name :</strong> @Model.Country.Name
 

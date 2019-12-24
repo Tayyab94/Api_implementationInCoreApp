@@ -1,0 +1,21 @@
+﻿@model BookApiProject.Models.Country
+@{
+    ViewData["Title"] = "CreateCountry";
+}
+<div class="text-danger" asp-validation-summary="ModelOnly">
+</div>
+<h1>Create Country</h1>
+
+<form asp-action="CreateCountry" asp-controller="Countries" method="post">
+    <div class="form-group">
+        <div>
+            <label asp-for="Name">Country Name :</label>
+        </div>
+        <div>
+            <input asp-for="Name" class="form-control" />
+        </div>
+        <br />
+        <input type="submit" value="Save Country" class="btn btn-sm btn-outline-primary"/>
+    </div>
+</form>
+

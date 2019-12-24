@@ -1,10 +1,12 @@
 ﻿using Book_GUI.Services;
 using Book_GUI.ViewModels;
 using BookApiProject.Dtos;
+using BookApiProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Book_GUI.Controllers
@@ -57,8 +59,149 @@ namespace Book_GUI.Controllers
                 Authors = authors,
                 Country = country
             };
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(countryAuthorModel);
         }
 
+        [HttpGet]
+        public IActionResult CreateCountry()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult CreateCountry(Country model)
+        {
+            using(var client= new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:60039/api/");
+                var responseTask = client.PostAsJsonAsync("countries", model);
+
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                if(result.IsSuccessStatusCode)
+                {
+                    var newCountryTask = result.Content.ReadAsAsync<Country>();
+                    newCountryTask.Wait();
+
+                    var newCountry = newCountryTask.Result;
+
+                    TempData["SuccessMessage"] = $"Country => {newCountry.Name} was Saved Successfuly!";
+
+                    return RedirectToAction(nameof(GetCountryById), new { countryId = newCountry.Id });
+                }
+
+                if(Convert.ToInt32(result.StatusCode)==422)
+                {
+                    ModelState.AddModelError("", "Country already Exist");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Something went Wrong please try again");
+                }
+            }
+            return View();
+        }
+
+       [HttpGet]
+       public IActionResult UpdateCountry(int countryid)
+        {
+            var country = _countryRepositoryGUI.GetCountryByID(countryid);
+
+            if(country==null)
+            {
+                ModelState.AddModelError(string.Empty, "Error For Getting Country");
+
+                country = new CountryDto();
+            }
+
+            return View(country);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCountry(Country model)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:60039/api/");
+                var responseTask = client.PutAsJsonAsync($"countries/{model.Id}", model);
+
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"Country => {model.Name} was Update Successfuly!";
+
+                    return RedirectToAction(nameof(GetCountryById), new { countryId = model.Id });
+                }
+
+                if (Convert.ToInt32(result.StatusCode) == 422)
+                {
+                    ModelState.AddModelError("", "Country already Exist");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Something went Wrong please try again");
+                }
+            }
+
+            var countryDto = _countryRepositoryGUI.GetCountryByID(model.Id);
+            return View(countryDto);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteCountry(int countryid)
+        {
+            var country = _countryRepositoryGUI.GetCountryByID(countryid);
+
+            if(country==null)
+            {
+                ModelState.AddModelError(string.Empty, "Error for Getting Country");
+
+                country = new CountryDto();
+            }
+
+            return View(country);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteCountry(int countryid,string countryName)
+        {
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:60039/api/");
+                var responseTask = client.DeleteAsync($"countries/{countryid}");
+
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+
+                if (result.IsSuccessStatusCode)
+                {
+                    TempData["SuccessMessage"] = $"Country => {countryName} was Deleted Successfuly!";
+
+                    return RedirectToAction(nameof(Index));
+                }
+
+                if (Convert.ToInt32(result.StatusCode) == 409)
+                {
+                    ModelState.AddModelError("", $"Country {countryName} can not be deleted successfuly" +
+                        $" because it is used by at least one author");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Something went Wrong please try again");
+                }
+            }
+
+            var countryDto = _countryRepositoryGUI.GetCountryByID(countryid);
+            return View(countryDto);
+        }
     }
 }
